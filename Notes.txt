@@ -1,0 +1,47 @@
+
+
+
+
+TransferService
+
+--------------------------------------------------
+	transfers money from account to account
+--------------------------------------------------
+	->transfer()
+	
+	load from account details
+	load to account details
+	calls debit
+	calls credit
+		
+	
+	
+AccountRepository
+
+--------------------------------------------------
+	
+--------------------------------------------------
+	->loadAccount()
+	
+	
+--------------------------------------------------
+	amount is debited from account
+--------------------------------------------------
+	->debit()
+	
+	checks the previousAmount is greater than or equal to the amount which is to be debited
+	if condition satisfies updates the fromAccount balance with 
+			previousAmount-amount
+	else displays a message that account dont have sufficient amount to transfer
+	
+--------------------------------------------------
+	amount is credited to account
+--------------------------------------------------
+	->credit()
+	
+	
+	
+--------------------------------------------------
+	account is updated with the updated balance
+--------------------------------------------------
+	-updateAccount()
