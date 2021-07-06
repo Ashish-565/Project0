@@ -1,0 +1,27 @@
+
+
+
+I wrote money-transfer-system application java code
+
+------------------transfer-------------------------
+In that
+	-> I added exception (InvalidAccountDetailsException)
+	
+	
+	-> account repository (it handles loading account number, to credit/debit and to update account balance)
+	
+	
+	-> transfer service (it handles transfer amount from one account to other)
+	
+
+
+
+----------------------db---------------------------
+In that
+	-> I added connection to db
+	
+	
+	-> entity of amount table and transfer table
+	
+	
+	-> repository (it handles inserting account and updating account, it handles inserting transfer transactions) 

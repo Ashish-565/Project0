@@ -1,4 +1,6 @@
-package com.revature.transfer;
+package com.revature.transfer.repository;
+
+import com.revature.transfer.exceptions.InvalidAccountDetailsException;
 
 public interface AccountRepository {
 	void loadAccount(String accountNumber) throws InvalidAccountDetailsException;

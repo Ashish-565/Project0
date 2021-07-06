@@ -1,4 +1,7 @@
-package com.revature.transfer;
+package com.revature.transfer.services;
+
+import com.revature.transfer.exceptions.InvalidAccountDetailsException;
+import com.revature.transfer.repository.AccountRepository;
 
 public class TransferServiceImpl implements TransferService{
 	

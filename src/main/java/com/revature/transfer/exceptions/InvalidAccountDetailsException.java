@@ -1,4 +1,4 @@
-package com.revature.transfer;
+package com.revature.transfer.exceptions;
 
 @SuppressWarnings("serial")
 public class InvalidAccountDetailsException extends Exception {
