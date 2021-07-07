@@ -1,16 +1,16 @@
 package com.revature.db.entity;
 
-public class Amount {
+public class Account {
 	private int accountNumber;
 	private int accountBalance;
 	
-	public Amount(int accountNumber, int accountBalance) {
+	public Account(int accountNumber, int accountBalance) {
 		super();
 		this.accountNumber = accountNumber;
 		this.accountBalance = accountBalance;
 	}
 
-	public Amount() {
+	public Account() {
 
 	}
 	

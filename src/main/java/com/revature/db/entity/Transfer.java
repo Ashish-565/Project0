@@ -7,15 +7,13 @@ public class Transfer {
 	private Time dateAndTime;
 	private int amount;
 	private String creditOrDebit;
-	private int balance;
 	
-	public Transfer(int transactionId, Time dateAndTime, int amount, String creditOrDebit, int balance) {
+	public Transfer(int transactionId, Time time, int amount2, String creditOrDebit) {
 		super();
 		this.transactionId = transactionId;
-		this.dateAndTime = dateAndTime;
-		this.amount = amount;
+		this.dateAndTime = time;
+		this.amount = amount2;
 		this.creditOrDebit = creditOrDebit;
-		this.balance = balance;
 	}
 	
 	public Transfer() {
@@ -34,8 +32,8 @@ public class Transfer {
 		return dateAndTime;
 	}
 
-	public void setDateAndTime(Time dateAndTime) {
-		this.dateAndTime = dateAndTime;
+	public void setDateAndTime(Time time) {
+		this.dateAndTime = time;
 	}
 
 	public int getAmount() {
@@ -54,18 +52,10 @@ public class Transfer {
 		this.creditOrDebit = creditOrDebit;
 	}
 
-	public int getBalance() {
-		return balance;
-	}
-
-	public void setBalance(int balance) {
-		this.balance = balance;
-	}
-
 	@Override
 	public String toString() {
 		return "Transfer [transactionId=" + transactionId + ", dateAndTime=" + dateAndTime + ", amount=" + amount
-				+ ", creditOrDebit=" + creditOrDebit + ", balance=" + balance + "]";
+				+ ", creditOrDebit=" + creditOrDebit + "]";
 	}
 	
 }

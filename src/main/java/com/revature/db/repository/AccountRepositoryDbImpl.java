@@ -2,28 +2,29 @@ package com.revature.db.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.revature.db.connection.ConnectionFactory;
-import com.revature.db.entity.Amount;
 
-public class AmountRepositoryImpl implements AmountRepository{
+public class AccountRepositoryDbImpl implements AccountRepositoryDb{
 
-	public void save(Amount amount) {
+	public boolean check(int account) {
+		boolean flag = false;
 		Connection con = null;
 		try {
 			con = ConnectionFactory.getConnection();
 			
-			String sql = "insert into amount values (?,?)";
+			String sql = "select * from account where acc_num = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			
-			ps.setInt(1, amount.getAccountNumber());
-			ps.setInt(2, amount.getAccountBalance());
+			ps.setInt(1, account);
 			
 			int count = ps.executeUpdate();
 			if(count == 1)
 			{
-				System.out.println("Account added");
+				flag = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -34,6 +35,7 @@ public class AmountRepositoryImpl implements AmountRepository{
 				e.printStackTrace();
 			}
 		}
+		return flag;
 	}
 
 	public void update(int accountNumber,int balance) {
@@ -61,6 +63,28 @@ public class AmountRepositoryImpl implements AmountRepository{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public int balance(int account) {
+		int amount = 0;
+		Connection con = null;
+		try {
+			con = ConnectionFactory.getConnection();
+			
+			String sql = "select acc-bal from account where acc_num = ?";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			amount = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return amount;
 	}
 
 }
