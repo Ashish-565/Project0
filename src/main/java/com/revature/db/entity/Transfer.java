@@ -1,18 +1,18 @@
 package com.revature.db.entity;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Transfer {
 	private int transactionId;
-	private Time dateAndTime;
+	private Timestamp dateAndTime;
 	private int amount;
 	private String creditOrDebit;
 	
-	public Transfer(int transactionId, Time time, int amount2, String creditOrDebit) {
+	public Transfer(int transactionId, Timestamp time, int amount, String creditOrDebit) {
 		super();
 		this.transactionId = transactionId;
 		this.dateAndTime = time;
-		this.amount = amount2;
+		this.amount = amount;
 		this.creditOrDebit = creditOrDebit;
 	}
 	
@@ -28,11 +28,11 @@ public class Transfer {
 		this.transactionId = transactionId;
 	}
 
-	public Time getDateAndTime() {
+	public Timestamp getDateAndTime() {
 		return dateAndTime;
 	}
 
-	public void setDateAndTime(Time time) {
+	public void setDateAndTime(Timestamp time) {
 		this.dateAndTime = time;
 	}
 

@@ -16,12 +16,11 @@ public class AccountRepositoryDbImpl implements AccountRepositoryDb{
 		try {
 			con = ConnectionFactory.getConnection();
 			
-			String sql = "select * from account where acc_num = ?";
-			PreparedStatement ps = con.prepareStatement(sql);
-			
-			ps.setInt(1, account);
-			
-			int count = ps.executeUpdate();
+			String sql = "select count(*) from account_system where acc_num = "+account;
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			int count = rs.getInt(1);
 			if(count == 1)
 			{
 				flag = true;
@@ -43,17 +42,13 @@ public class AccountRepositoryDbImpl implements AccountRepositoryDb{
 		try {
 			con = ConnectionFactory.getConnection();
 			
-			String sql = "update amount set acc_bal = ? where acc_num = ?";
+			String sql = "update account_system set acc_bal = ? where acc_num = ?";
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, balance);
 			ps.setInt(2, accountNumber);
 			
-			int count = ps.executeUpdate();
-			if(count == 1)
-			{
-				System.out.println("Balance updated");
-			}
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -71,9 +66,10 @@ public class AccountRepositoryDbImpl implements AccountRepositoryDb{
 		try {
 			con = ConnectionFactory.getConnection();
 			
-			String sql = "select acc-bal from account where acc_num = ?";
+			String sql = "select acc_bal from account_system where acc_num = "+account;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
 			amount = rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();

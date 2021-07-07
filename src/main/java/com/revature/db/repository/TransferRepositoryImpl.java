@@ -17,20 +17,15 @@ public class TransferRepositoryImpl implements TransferRepository{
 		Connection con = null;
 		try {
 			con = ConnectionFactory.getConnection();
-			
 			String sql = "insert into transfer values (?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
 			
 			ps.setInt(1, transfer.getTransactionId());
-			ps.setTime(2, transfer.getDateAndTime());
+			ps.setTimestamp(2, transfer.getDateAndTime());
 			ps.setInt(3, transfer.getAmount());
 			ps.setString(4, transfer.getCreditOrDebit());
 			
-			int count = ps.executeUpdate();
-			if(count == 1)
-			{
-				System.out.println("Transaction recorded");
-			}
+			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -49,7 +44,6 @@ public class TransferRepositoryImpl implements TransferRepository{
 
 		try {
 			con = ConnectionFactory.getConnection();
-			// step-3 : create jdbc-statements with SQL
 
 			String sql="select * from transfer";
 			
@@ -59,13 +53,12 @@ public class TransferRepositoryImpl implements TransferRepository{
 			while (rs.next()) {
 				Transfer transfer = new Transfer();
 				transfer.setTransactionId(rs.getInt(1));
-				transfer.setDateAndTime(rs.getTime(2));
-				transfer.setCreditOrDebit(rs.getString(3));
-				transfer.setAmount(rs.getInt(4));
+				transfer.setDateAndTime(rs.getTimestamp(2));
+				transfer.setAmount(rs.getInt(3));
+				transfer.setCreditOrDebit(rs.getString(4));
 				transferList.add(transfer);
 			}
 
-			// step-7 : close connection
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

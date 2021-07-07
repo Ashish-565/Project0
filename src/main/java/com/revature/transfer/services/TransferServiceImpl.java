@@ -1,35 +1,31 @@
 package com.revature.transfer.services;
 
+import com.revature.db.repository.TransferRepositoryImpl;
 import com.revature.transfer.exceptions.InsufficientAmountException;
 import com.revature.transfer.exceptions.InvalidAccountDetailsException;
 import com.revature.transfer.repository.AccountRepository;
+import com.revature.transfer.repository.AccountRepositoryImpl;
 
 public class TransferServiceImpl implements TransferService{
 	
-	private AccountRepository accountRepository;
+	private AccountRepository accountRepository = new AccountRepositoryImpl();
 	
 	public void transfer(double amount, int fromAccount, int toAccount) {
 		try {
 			accountRepository.loadAccount(fromAccount);
-		} catch (InvalidAccountDetailsException e) {
-			System.out.println(e.getMessage()+" of from Account");
-		}
-		try {
 			accountRepository.loadAccount(toAccount);
-		} catch (InvalidAccountDetailsException e) {
-			System.out.println(e.getMessage()+" of to Account");
-		}
-		try {
 			accountRepository.debit(fromAccount, amount);
+			accountRepository.credit(toAccount, amount);
+		} catch (InvalidAccountDetailsException e) {
+			System.out.println(e.getMessage());
 		} catch (InsufficientAmountException e) {
 			System.out.println(e.getMessage());
 		}
-		accountRepository.credit(toAccount, amount);
 		
 	}
 
 	public void transactions() {
-		//call transacton db
+		new TransferRepositoryImpl().getTransfers().forEach(transaction->System.out.println(transaction));
 	}
 	
 }

@@ -7,5 +7,5 @@ public interface AccountRepository {
 	void loadAccount(int accountNumber) throws InvalidAccountDetailsException;
 	void debit(int accountNumber, double amount) throws InsufficientAmountException;
 	void credit(int accountNumber, double amount);
-	double updateAccount(int accountNumber, double updatedAmount);
+	void updateAccount(int accountNumber, double updatedAmount);
 }
