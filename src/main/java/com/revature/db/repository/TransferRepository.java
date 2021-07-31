@@ -11,4 +11,7 @@ public interface TransferRepository {
 	
 	List<Transfer> getTransfers();
 	
+	List<Transfer> getTransfers(int limit);
+
+	List<Transfer> getTransfers(String fromDate, String toDate);
 }

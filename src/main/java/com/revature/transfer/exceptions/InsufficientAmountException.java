@@ -4,6 +4,6 @@ package com.revature.transfer.exceptions;
 public class InsufficientAmountException extends Exception{
 	@Override
 	public String getMessage() {
-		return "Insufficient amount to debit";
+		return "Insufficient amount to debit from account ";
 	}
 }

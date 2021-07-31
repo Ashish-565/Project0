@@ -4,13 +4,15 @@ import java.sql.Timestamp;
 
 public class Transfer {
 	private int transactionId;
+	private int account;
 	private Timestamp dateAndTime;
 	private int amount;
 	private String creditOrDebit;
 	
-	public Transfer(int transactionId, Timestamp time, int amount, String creditOrDebit) {
+	public Transfer(int account, Timestamp time, int amount, String creditOrDebit) {
 		super();
-		this.transactionId = transactionId;
+//		this.transactionId = transactionId;
+		this.account = account;
 		this.dateAndTime = time;
 		this.amount = amount;
 		this.creditOrDebit = creditOrDebit;
@@ -20,6 +22,14 @@ public class Transfer {
 
 	}
 
+	public int getAccount() {
+		return account;
+	}
+
+	public void setAccount(int account) {
+		this.account = account;
+	}
+	
 	public int getTransactionId() {
 		return transactionId;
 	}
@@ -54,8 +64,8 @@ public class Transfer {
 
 	@Override
 	public String toString() {
-		return "Transfer [transactionId=" + transactionId + ", dateAndTime=" + dateAndTime + ", amount=" + amount
-				+ ", creditOrDebit=" + creditOrDebit + "]";
+		return "TransactionId = " + transactionId + ", Account Number = " + account+ ", dateAndTime = " + dateAndTime + ", amount = " + amount
+				+ ", creditOrDebit = " + creditOrDebit;
 	}
 	
 }

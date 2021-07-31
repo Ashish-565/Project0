@@ -45,7 +45,7 @@ repository
 TransferService
 
 --------------------------------------------------
-	transfers money from account to account
+	transfers money from account-to account
 --------------------------------------------------
 	->transfer()
 	

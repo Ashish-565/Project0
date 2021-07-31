@@ -4,6 +4,6 @@ package com.revature.transfer.exceptions;
 public class InvalidAccountDetailsException extends Exception {
 	@Override
 	public String getMessage() {
-		return "Invalid Account details";
+		return "Invalid Account number: ";
 	}
 }

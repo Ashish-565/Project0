@@ -16,7 +16,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 	AccountRepositoryDb accountDb = new AccountRepositoryDbImpl();
 	TransferRepository transferDb = new TransferRepositoryImpl();
 	
-	private static int trans_id = 1230;
+//	private int trans_id = 1230;
 
 	public void loadAccount(int accountNumber) throws InvalidAccountDetailsException {
 		if(accountDb.check(accountNumber)) {
@@ -29,7 +29,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 		if (accountDb.balance(accountNumber) >= amount) {
 			updateAccount(accountNumber, accountDb.balance(accountNumber) - amount);
 			Timestamp time=new Timestamp(new Date().getTime());
-			transferDb.save(new Transfer(trans_id, time, (int)amount, "debit"));
+			transferDb.save(new Transfer(accountNumber, time, (int)amount, "debit"));
 		} else {
 			throw new InsufficientAmountException();
 		}
@@ -38,8 +38,8 @@ public class AccountRepositoryImpl implements AccountRepository {
 	public void credit(int accountNumber, double amount) {
 		updateAccount(accountNumber, accountDb.balance(accountNumber) + amount);
 		Timestamp time=new Timestamp(new Date().getTime());
-		transferDb.save(new Transfer(trans_id, time, (int)amount, "credit"));
-		trans_id += 1;
+		transferDb.save(new Transfer(accountNumber, time, (int)amount, "credit"));
+//		trans_id += 1;
 	}
 
 	public void updateAccount(int accountNumber, double updatedAmount) {

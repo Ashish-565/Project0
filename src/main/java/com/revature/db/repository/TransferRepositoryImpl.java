@@ -11,20 +11,21 @@ import java.util.List;
 import com.revature.db.connection.ConnectionFactory;
 import com.revature.db.entity.Transfer;
 
-public class TransferRepositoryImpl implements TransferRepository{
+public class TransferRepositoryImpl implements TransferRepository {
 
 	public void save(Transfer transfer) {
 		Connection con = null;
 		try {
 			con = ConnectionFactory.getConnection();
-			String sql = "insert into transfer values (?,?,?,?)";
+			String sql = "insert into transfer values (?,?,?,?,?)";
 			PreparedStatement ps = con.prepareStatement(sql);
-			
+
 			ps.setInt(1, transfer.getTransactionId());
-			ps.setTimestamp(2, transfer.getDateAndTime());
-			ps.setInt(3, transfer.getAmount());
-			ps.setString(4, transfer.getCreditOrDebit());
-			
+			ps.setInt(2, transfer.getAccount());
+			ps.setTimestamp(3, transfer.getDateAndTime());
+			ps.setInt(4, transfer.getAmount());
+			ps.setString(5, transfer.getCreditOrDebit());
+
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -45,17 +46,54 @@ public class TransferRepositoryImpl implements TransferRepository{
 		try {
 			con = ConnectionFactory.getConnection();
 
-			String sql="select * from transfer";
-			
+			String sql = "select * from transfer";
+
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
 				Transfer transfer = new Transfer();
 				transfer.setTransactionId(rs.getInt(1));
-				transfer.setDateAndTime(rs.getTimestamp(2));
-				transfer.setAmount(rs.getInt(3));
-				transfer.setCreditOrDebit(rs.getString(4));
+				transfer.setAccount(rs.getInt(2));
+				transfer.setDateAndTime(rs.getTimestamp(3));
+				transfer.setAmount(rs.getInt(4));
+				transfer.setCreditOrDebit(rs.getString(5));
+				transferList.add(transfer);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return transferList;
+	}
+
+	public List<Transfer> getTransfers(int limit) {
+		Connection con = null;
+
+		List<Transfer> transferList = new ArrayList<Transfer>();
+
+		try {
+			con = ConnectionFactory.getConnection();
+
+			String sql = "select * from transfer order by trans_id desc limit "+limit;
+
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Transfer transfer = new Transfer();
+				transfer.setTransactionId(rs.getInt(1));
+				transfer.setAccount(rs.getInt(2));
+				transfer.setDateAndTime(rs.getTimestamp(3));
+				transfer.setAmount(rs.getInt(4));
+				transfer.setCreditOrDebit(rs.getString(5));
 				transferList.add(transfer);
 			}
 
@@ -72,5 +110,40 @@ public class TransferRepositoryImpl implements TransferRepository{
 		return transferList;
 	}
 	
+	public List<Transfer> getTransfers(String fromDate, String toDate) {
+		Connection con = null;
+
+		List<Transfer> transferList = new ArrayList<Transfer>();
+
+		try {
+			con = ConnectionFactory.getConnection();
+
+			String sql = "select * from transfer where date_n_time >= \'"+fromDate+"\' and date_n_time <= \'"+toDate+"\'";
+
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				Transfer transfer = new Transfer();
+				transfer.setTransactionId(rs.getInt(1));
+				transfer.setAccount(rs.getInt(2));
+				transfer.setDateAndTime(rs.getTimestamp(3));
+				transfer.setAmount(rs.getInt(4));
+				transfer.setCreditOrDebit(rs.getString(5));
+				transferList.add(transfer);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return transferList;
+	}
 
 }
